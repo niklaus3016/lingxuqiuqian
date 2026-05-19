@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --color-trad-red: #5C0A0B;
+  --color-trad-yellow: #FFD700;
+  --color-trad-gold: #D4AF37;
+  --color-trad-paper: #F3E5AB;
+  --color-trad-ink: #F3E5AB;
+  --color-trad-dark: #4A0000;
+
+  --font-serif: "Noto Serif SC", "STSong", "SimSun", serif;
+  --font-sans: "Inter", "Source Han Sans CN", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-trad-red text-trad-ink font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Lattice Corner Pattern */
+  .lattice-corner {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    border-color: var(--color-trad-gold);
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 5;
+  }
+
+  .lattice-top-left { top: 0; left: 0; border-top-width: 4px; border-left-width: 4px; margin: 8px; }
+  .lattice-top-right { top: 0; right: 0; border-top-width: 4px; border-right-width: 4px; margin: 8px; }
+  .lattice-bottom-left { bottom: 0; left: 0; border-bottom-width: 4px; border-left-width: 4px; margin: 8px; }
+  .lattice-bottom-right { bottom: 0; right: 0; border-bottom-width: 4px; border-right-width: 4px; margin: 8px; }
+
+  /* Patterned Background */
+  .bg-trad-pattern {
+    position: relative;
+    background-color: var(--color-trad-red);
+  }
+
+  .bg-trad-pattern::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    pointer-events: none;
+    background-image: radial-gradient(var(--color-trad-gold) 1px, transparent 0);
+    background-size: 40px 40px;
+  }
+
+  .bg-trad-pattern::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+  }
+}
+
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Global scrollbar hide */
+*::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

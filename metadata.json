@@ -1,0 +1,8 @@
+{
+  "name": "灵序求签",
+  "description": "一款纯前端的电子求签与黄历宜忌查看App，支持多种签类选择、动画抽签、详细解签及每日黄历查询，主打趣味祈福与民俗文化体验。",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
