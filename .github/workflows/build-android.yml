@@ -11,31 +11,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-
+    
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '22'
         cache: 'npm'
-
+    
     - name: Install dependencies
       run: npm ci
-
+    
     - name: Build web app
       run: npm run build
-
+    
     - name: Sync web resources to Android
       run: npx cap sync android
-
+    
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
         distribution: 'adopt'
         java-version: '21'
-
+    
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
-
+    
     - name: Make gradlew executable
       run: chmod +x ./android/gradlew
 
@@ -64,19 +64,19 @@ jobs:
         echo "# 将 base64 编码的 keystore 还原为文件"
         echo ""
         full_output=$(keytool -list -v -keystore my-release-key.keystore -alias ${{ secrets.KEY_ALIAS }} -storepass "${{ secrets.KEYSTORE_PASSWORD }}")
-
+        
         sha1_with_colons=$(echo "$full_output" | grep -i "sha1:" | head -1 | sed 's/.*sha1:\s*//i' | sed 's/\s*$//')
         sha256_with_colons=$(echo "$full_output" | grep -i "sha256:" | head -1 | sed 's/.*sha256:\s*//i' | sed 's/\s*$//')
         md5_with_colons=$(echo "$full_output" | grep -i "md5:" | head -1 | sed 's/.*md5:\s*//i' | sed 's/\s*$//')
-
+        
         echo "===== 证书指纹 ====="
         echo "     SHA1: $sha1_with_colons"
         echo "     SHA256: $sha256_with_colons"
-        echo "======================"
+        echo "===================="
         echo ""
         echo "===== MD5 指纹 ====="
         echo "$md5_with_colons"
-        echo "==================="
+        echo "===================="
         echo ""
         echo "===== SHA1 指纹（小米应用商店用）====="
         echo "$sha1_with_colons"
@@ -107,14 +107,14 @@ jobs:
       run: |
         cd android
         ./gradlew assembleDebug
-
+    
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
         path: android/app/build/outputs/apk/debug/app-debug.apk
         retention-days: 30
-
+    
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
