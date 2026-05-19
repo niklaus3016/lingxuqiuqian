@@ -1,8 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "com.lingxuqiuqian.app"
+    namespace = "com.lingxuqian.app"
     compileSdk = rootProject.ext.compileSdkVersion
+    
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("KEYSTORE_FILE") ?: "release.keystore")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS") ?: "lingxuqiuqian"
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+    
     defaultConfig {
         applicationId "com.lingxuqiuqian.app"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -20,6 +30,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
