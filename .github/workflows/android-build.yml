@@ -30,13 +30,16 @@ jobs:
     - name: Build web assets
       run: npm run build
 
-    - name: Build Android release APK
-      run: cd android && ./gradlew assembleRelease
+    - name: Make gradlew executable
+      run: chmod +x android/gradlew
+
+    - name: Build Android debug APK
+      run: cd android && ./gradlew assembleDebug
       env:
         ANDROID_HOME: /usr/local/lib/android/sdk
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-release
-        path: android/app/build/outputs/apk/release/app-release.apk
+        name: app-debug
+        path: android/app/build/outputs/apk/debug/app-debug.apk
