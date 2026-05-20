@@ -87,6 +87,11 @@ export default function SettingsView({ onBack, settings, onUpdate }: SettingsVie
           >
             <Shield size={18} /> 隐私政策
           </button>
+
+          {/* Version */}
+          <div className="text-center text-trad-paper/40 text-xs font-serif">
+            版本号：1.0
+          </div>
         </div>
 
         {/* About Section */}
