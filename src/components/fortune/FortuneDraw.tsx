@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useAnimation } from 'motion/react';
 import confetti from 'canvas-confetti';
 import { FortuneCategory, FortuneItem } from '../../types';
@@ -14,9 +14,24 @@ export default function FortuneDraw({ category, onComplete, soundEnabled, onCanc
   const [isShaking, setIsShaking] = useState(false);
   const [progress, setProgress] = useState(0);
   const shakeControls = useAnimation();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Audio refs initialized in useEffect to ensure they are ready
   const audioContext = useRef<AudioContext | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      // Cleanup audio context
+      if (audioContext.current) {
+        audioContext.current.close();
+        audioContext.current = null;
+      }
+    };
+  }, []);
 
   const playShakeSound = () => {
     if (!audioContext.current) {
@@ -103,7 +118,7 @@ export default function FortuneDraw({ category, onComplete, soundEnabled, onCanc
     });
 
     const randomItem = category.items[Math.floor(Math.random() * category.items.length)];
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       onComplete(randomItem);
     }, 1200);
   };
@@ -159,7 +174,7 @@ export default function FortuneDraw({ category, onComplete, soundEnabled, onCanc
         
         {isShaking && (
           <div className="mt-8 text-center">
-            <p className="text-xs text-trad-yellow font-serif font-black tracking-[0.2em] animate-pulse [text-shadow:0_0_10px_rgba(234,179,8,0.3)]">
+            <p className="text-xs text-trad-yellow font-serif font-black tracking-widest animate-pulse [text-shadow:0_0_10px_rgba(234,179,8,0.3)]">
               沙沙沙... 灵签感应中...
             </p>
           </div>

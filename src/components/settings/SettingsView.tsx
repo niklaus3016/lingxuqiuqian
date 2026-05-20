@@ -4,6 +4,7 @@ import { ChevronLeft, Type, Volume2, Trash2, ShieldCheck, Shield, X } from 'luci
 import { Settings } from '../../types';
 import { cn } from '../../lib/utils';
 import { AgreementModal, PrivacyPolicyContent } from '../agreement/AgreementComponents';
+import { storage } from '../../lib/storage';
 
 interface SettingsViewProps {
   onBack: () => void;
@@ -17,6 +18,7 @@ export default function SettingsView({ onBack, settings, onUpdate }: SettingsVie
   const handleClearCache = () => {
     if (window.confirm('此操作将清除页面缓存和截图记录，确定吗？')) {
       localStorage.clear();
+      storage.clearCache();
       alert('已成功清除本地缓存。');
     }
   };
@@ -27,7 +29,7 @@ export default function SettingsView({ onBack, settings, onUpdate }: SettingsVie
         <button onClick={onBack} className="p-2 -ml-1 text-trad-yellow active:scale-90 transition-transform z-10">
           <ChevronLeft size={24} />
         </button>
-        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-[0.2em] [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
+        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-widest [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
           系统设置
         </h1>
         <div className="w-10" />

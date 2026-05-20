@@ -40,7 +40,7 @@ export default function AlmanacDetail({ onClose, onSelectDate, currentDate }: Al
         <button onClick={onClose} className="p-2 -ml-1 text-trad-yellow z-10">
           <ChevronLeft size={24} />
         </button>
-        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-[0.2em] [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
+        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-widest [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
           周历详情
         </h1>
         <div className="w-10" />
@@ -77,11 +77,11 @@ export default function AlmanacDetail({ onClose, onSelectDate, currentDate }: Al
              </div>
 
              <div className="mb-10 text-center relative">
-               <div className="text-sm font-serif text-trad-gold mb-2 font-black tracking-[0.3em] uppercase">{data.ganZhiYear}</div>
+               <div className="text-sm font-serif text-trad-gold mb-2 font-black tracking-widest uppercase">{data.ganZhiYear}</div>
                <h2 className="text-4xl font-serif font-black text-trad-yellow [text-shadow:0_0_20px_rgba(234,179,8,0.3)] tracking-wider">
                  {data.lunarDate}
                </h2>
-               <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-trad-gold/30 to-transparent mx-auto my-4" />
+               <div className="w-16 h-px bg-gradient-to-r from-transparent via-trad-gold/30 to-transparent mx-auto my-4" />
                <div className="text-xs text-trad-paper/50 tracking-widest font-serif">
                  {new Date(data.solarDate.split(' ')[0]).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
                </div>

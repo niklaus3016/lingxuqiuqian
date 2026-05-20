@@ -52,7 +52,7 @@ export default function FortuneHome({ onBack, settings }: FortuneHomeProps) {
         <button onClick={onBack} className="p-2 -ml-1 text-trad-yellow active:scale-90 transition-transform z-10">
           <ChevronLeft size={24} />
         </button>
-        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-[0.2em] [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
+        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-widest [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
           抽签祈福
         </h1>
         <div className="w-10" />
@@ -67,7 +67,7 @@ export default function FortuneHome({ onBack, settings }: FortuneHomeProps) {
                 <p className="text-base text-trad-yellow font-serif font-bold leading-relaxed tracking-wide">
                   诚心祈愿 · 摇晃签筒
                 </p>
-                <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-trad-gold/40 to-transparent my-1.5" />
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-trad-gold/40 to-transparent my-1.5" />
                 <p className="text-[10px] text-trad-paper/40 font-sans">
                   请根据心中所求选择合适的签筒
                 </p>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Settings, FavoriteItem } from './types';
 import Home from './components/home/Home';
@@ -8,6 +8,7 @@ import Favorites from './components/favorites/Favorites';
 import SettingsView from './components/settings/SettingsView';
 import { Smartphone } from 'lucide-react';
 import { PrivacyModal, AgreementModal, PrivacyPolicyContent, UserAgreementContent, DeclineModal } from './components/agreement/AgreementComponents';
+import { storage } from './lib/storage';
 
 type Page = 'home' | 'fortune' | 'almanac' | 'favorites' | 'settings';
 type AgreementType = 'privacy' | 'agreement' | null;
@@ -31,18 +32,25 @@ export default function App() {
       setShowPrivacyModal(true);
     }
 
-    const savedSettings = localStorage.getItem('app_settings');
+    const savedSettings = storage.getSettings();
     if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
+      setSettings(savedSettings);
     }
 
+    let resizeTimeout: NodeJS.Timeout;
     const checkOrientation = () => {
-      setIsLandscape(window.innerWidth > window.innerHeight);
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        setIsLandscape(window.innerWidth > window.innerHeight);
+      }, 100);
     };
 
     window.addEventListener('resize', checkOrientation);
     checkOrientation();
-    return () => window.removeEventListener('resize', checkOrientation);
+    return () => {
+      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', checkOrientation);
+    };
   }, []);
 
   const handleAcceptAgreement = () => {

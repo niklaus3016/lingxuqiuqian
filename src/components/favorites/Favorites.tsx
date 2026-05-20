@@ -5,6 +5,7 @@ import { FavoriteItem, FortuneItem, Settings, FortuneCategory } from '../../type
 import { cn } from '../../lib/utils';
 import fortunesData from '../../data/fortunes.json';
 import FortuneDetail from '../fortune/FortuneDetail';
+import { storage } from '../../lib/storage';
 
 interface FavoritesProps {
   onBack: () => void;
@@ -16,7 +17,7 @@ export default function Favorites({ onBack, settings }: FavoritesProps) {
   const [selectedItem, setSelectedItem] = useState<{item: FortuneItem, category: FortuneCategory} | null>(null);
 
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('app_favorites') || '[]');
+    const saved = storage.getFavorites();
     setFavorites(saved);
   }, []);
 
@@ -64,7 +65,7 @@ export default function Favorites({ onBack, settings }: FavoritesProps) {
         <button onClick={onBack} className="p-2 -ml-1 text-trad-yellow active:scale-90 transition-transform z-10">
           <ChevronLeft size={24} />
         </button>
-        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-[0.2em] [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
+        <h1 className="absolute inset-0 flex items-center justify-center text-xl font-serif font-black text-trad-yellow tracking-widest [text-shadow:0_0_15px_rgba(234,179,8,0.3)]">
           我的收藏
         </h1>
         <div className="w-10" />

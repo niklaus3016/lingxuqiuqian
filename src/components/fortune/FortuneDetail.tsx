@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { Heart, RefreshCw } from 'lucide-react';
 import { FortuneCategory, FortuneItem, Settings, FavoriteItem } from '../../types';
 import { cn } from '../../lib/utils';
+import { storage } from '../../lib/storage';
 
 interface FortuneDetailProps {
   category: FortuneCategory;
@@ -17,7 +18,7 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
 
   // 检查是否已收藏
   useEffect(() => {
-    const favorites = JSON.parse(localStorage.getItem('app_favorites') || '[]');
+    const favorites = storage.getFavorites();
     const exists = favorites.some((fav: FavoriteItem) => 
       fav.type === 'fortune' && (fav.data as FortuneItem).id === item.id && fav.categoryName === category.name
     );
@@ -25,12 +26,12 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
   }, [item.id, category.name]);
 
   const toggleFavorite = useCallback(() => {
-    const favorites = JSON.parse(localStorage.getItem('app_favorites') || '[]');
+    const favorites = storage.getFavorites();
     if (isFavorite) {
       const updated = favorites.filter((fav: FavoriteItem) => 
         !(fav.type === 'fortune' && (fav.data as FortuneItem).id === item.id && fav.categoryName === category.name)
       );
-      localStorage.setItem('app_favorites', JSON.stringify(updated));
+      storage.setFavorites(updated);
     } else {
       const newItem: FavoriteItem = {
         type: 'fortune',
@@ -39,7 +40,7 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
         categoryName: category.name
       };
       favorites.unshift(newItem);
-      localStorage.setItem('app_favorites', JSON.stringify(favorites));
+      storage.setFavorites(favorites);
     }
     setIsFavorite(!isFavorite);
   }, [isFavorite, item, category.name]);
@@ -59,11 +60,11 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
         
         <div className="bg-trad-red pt-8 pb-6 px-6 text-center text-trad-yellow flex flex-col items-center gap-4 border-b border-trad-gold/30 relative">
           <div className="flex flex-col items-center gap-1">
-            <h2 className="text-2xl font-serif font-black text-trad-yellow tracking-[0.2em] drop-shadow-md leading-tight uppercase [text-shadow:0_0_10px_rgba(234,179,8,0.2)]">
+            <h2 className="text-2xl font-serif font-black text-trad-yellow tracking-widest drop-shadow-md leading-tight uppercase [text-shadow:0_0_10px_rgba(234,179,8,0.2)]">
               {category.name}
             </h2>
             <div className="h-px w-16 bg-trad-gold/50" />
-            <div className="text-[10px] text-trad-yellow/60 font-serif tracking-[0.1em] mt-1">
+            <div className="text-[10px] text-trad-yellow/60 font-serif tracking-widest mt-1">
               第 {signIndex} 签 · 共 {category.items.length} 支
             </div>
           </div>
@@ -82,7 +83,7 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
             <div className="absolute -top-2 -left-2 text-2xl text-trad-gold/20 font-serif">「</div>
             <div className="absolute -bottom-2 -right-2 text-2xl text-trad-gold/20 font-serif">」</div>
 
-            <div className="font-serif font-bold text-trad-yellow drop-shadow-lg text-lg tracking-[0.05em] leading-loose max-w-[85%] mx-auto flex flex-col items-center gap-1">
+            <div className="font-serif font-bold text-trad-yellow drop-shadow-lg text-lg tracking-wide leading-loose max-w-[85%] mx-auto flex flex-col items-center gap-1">
               {item.poem.split(/[，；。！]/).filter(line => line.trim() !== '').map((line, idx) => (
                 <div key={idx}>{line}</div>
               ))}
@@ -94,7 +95,7 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
             <div className="relative">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-trad-gold" />
-                <h4 className="text-[10px] font-black text-trad-gold uppercase tracking-[0.2em]">
+                <h4 className="text-[10px] font-black text-trad-gold uppercase tracking-widest">
                   签语大意
                 </h4>
                 <div className="flex-1 h-px bg-trad-gold/10" />
@@ -107,7 +108,7 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
             <div className="relative">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-trad-gold/50" />
-                <h4 className="text-[10px] font-black text-trad-gold/60 uppercase tracking-[0.2em]">
+                <h4 className="text-[10px] font-black text-trad-gold/60 uppercase tracking-widest">
                   祈福建议
                 </h4>
                 <div className="flex-1 h-px bg-trad-gold/10" />

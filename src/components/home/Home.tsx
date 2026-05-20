@@ -16,7 +16,7 @@ export default function Home({ onNavigate }: HomeProps) {
             <span className="-rotate-45 font-black">灵</span>
           </div>
         </div>
-        <h1 className="text-3xl font-serif font-black text-trad-yellow tracking-[0.2em] mb-1 [text-shadow:0_0_20px_rgba(234,179,8,0.3)]">
+        <h1 className="text-3xl font-serif font-black text-trad-yellow tracking-widest mb-1 [text-shadow:0_0_20px_rgba(234,179,8,0.3)]">
           灵序求签
         </h1>
         <div className="h-px w-20 bg-trad-gold/30 mb-2" />
