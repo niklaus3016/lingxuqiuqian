@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'motion/react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getAlmanacData } from '../../services/lunar';
@@ -12,18 +12,21 @@ interface AlmanacDetailProps {
 
 export default function AlmanacDetail({ onClose, onSelectDate, currentDate }: AlmanacDetailProps) {
   const [selectedDate, setSelectedDate] = useState(currentDate);
-  const data = getAlmanacData(selectedDate);
+  const data = useMemo(() => getAlmanacData(selectedDate), [selectedDate]);
 
   // Generate week
-  const startOfWeek = new Date(selectedDate);
-  startOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay());
-  
-  const weekDays = [];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(startOfWeek);
-    d.setDate(startOfWeek.getDate() + i);
-    weekDays.push(d);
-  }
+  const weekDays = useMemo(() => {
+    const startOfWeek = new Date(selectedDate);
+    startOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay());
+    
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(startOfWeek);
+      d.setDate(startOfWeek.getDate() + i);
+      days.push(d);
+    }
+    return days;
+  }, [selectedDate]);
 
   return (
     <motion.div 

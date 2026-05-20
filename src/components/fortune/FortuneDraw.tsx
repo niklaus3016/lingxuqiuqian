@@ -69,8 +69,6 @@ export default function FortuneDraw({ category, onComplete, soundEnabled, onCanc
 
   const handleStartDraw = async () => {
     if (isShaking) return;
-    
-    playShakeSound();
 
     setIsShaking(true);
     setProgress(0);

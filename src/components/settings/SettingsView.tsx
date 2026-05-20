@@ -16,6 +16,7 @@ export default function SettingsView({ onBack, settings, onUpdate }: SettingsVie
 
   const handleClearCache = () => {
     if (window.confirm('此操作将清除页面缓存和截图记录，确定吗？')) {
+      localStorage.clear();
       alert('已成功清除本地缓存。');
     }
   };

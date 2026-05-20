@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion } from 'motion/react';
 import { Heart, RefreshCw } from 'lucide-react';
 import { FortuneCategory, FortuneItem, Settings, FavoriteItem } from '../../types';
@@ -15,6 +15,7 @@ interface FortuneDetailProps {
 export default function FortuneDetail({ category, item, settings, onBack, onRedraw }: FortuneDetailProps) {
   const [isFavorite, setIsFavorite] = useState(false);
 
+  // 检查是否已收藏
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('app_favorites') || '[]');
     const exists = favorites.some((fav: FavoriteItem) => 
@@ -23,7 +24,7 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
     setIsFavorite(exists);
   }, [item.id, category.name]);
 
-  const toggleFavorite = () => {
+  const toggleFavorite = useCallback(() => {
     const favorites = JSON.parse(localStorage.getItem('app_favorites') || '[]');
     if (isFavorite) {
       const updated = favorites.filter((fav: FavoriteItem) => 
@@ -41,7 +42,12 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
       localStorage.setItem('app_favorites', JSON.stringify(favorites));
     }
     setIsFavorite(!isFavorite);
-  };
+  }, [isFavorite, item, category.name]);
+
+  // 计算签文位置
+  const signIndex = useMemo(() => {
+    return category.items.findIndex(i => i.id === item.id) + 1;
+  }, [category.items, item.id]);
 
   return (
     <div className="flex flex-col gap-6 animate-in fade-in zoom-in duration-500">
@@ -58,7 +64,7 @@ export default function FortuneDetail({ category, item, settings, onBack, onRedr
             </h2>
             <div className="h-px w-16 bg-trad-gold/50" />
             <div className="text-[10px] text-trad-yellow/60 font-serif tracking-[0.1em] mt-1">
-              第 {category.items.findIndex(i => i.id === item.id) + 1} 签 · 共 {category.items.length} 支
+              第 {signIndex} 签 · 共 {category.items.length} 支
             </div>
           </div>
           

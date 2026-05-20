@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Download, Search, Info, X } from 'lucide-react';
 import { getAlmanacData, AlmanacData } from '../../services/lunar';
@@ -12,25 +12,17 @@ interface AlmanacHomeProps {
 
 export default function AlmanacHome({ onBack }: AlmanacHomeProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [data, setData] = useState<AlmanacData | null>(null);
   const [showHourLuck, setShowHourLuck] = useState(false);
   const [showWeekly, setShowWeekly] = useState(false);
-  const [currentTip, setCurrentTip] = useState(tipsData.tips[0]);
 
-  useEffect(() => {
-    setData(getAlmanacData(currentDate));
-    // Random tip
-    const randomTip = tipsData.tips[Math.floor(Math.random() * tipsData.tips.length)];
-    setCurrentTip(randomTip);
-  }, [currentDate]);
+  const data = useMemo(() => getAlmanacData(currentDate), [currentDate]);
+  const currentTip = useMemo(() => tipsData.tips[Math.floor(Math.random() * tipsData.tips.length)], []);
 
-  const changeDate = (days: number) => {
+  const changeDate = useCallback((days: number) => {
     const newDate = new Date(currentDate);
     newDate.setDate(newDate.getDate() + days);
     setCurrentDate(newDate);
-  };
-
-  if (!data) return null;
+  }, [currentDate]);
 
   return (
     <div className="flex flex-col h-full bg-trad-pattern">
