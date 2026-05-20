@@ -1,3 +1,4 @@
+import legacy from '@vitejs/plugin-legacy';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
@@ -6,7 +7,14 @@ import {defineConfig, loadEnv} from 'vite';
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(), 
+      tailwindcss(),
+      legacy({
+        targets: ['Android >= 5', 'iOS >= 10'],
+        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      })
+    ],
     base: './', // 使用相对路径，确保在 Android WebView 中正常加载资源
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
