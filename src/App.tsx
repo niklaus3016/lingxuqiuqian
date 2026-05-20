@@ -6,7 +6,6 @@ import FortuneHome from './components/fortune/FortuneHome';
 import AlmanacHome from './components/almanac/AlmanacHome';
 import Favorites from './components/favorites/Favorites';
 import SettingsView from './components/settings/SettingsView';
-import Guide from './components/guide/Guide';
 import { Smartphone } from 'lucide-react';
 import { PrivacyModal, AgreementModal, PrivacyPolicyContent, UserAgreementContent, DeclineModal } from './components/agreement/AgreementComponents';
 
@@ -15,7 +14,6 @@ type AgreementType = 'privacy' | 'agreement' | null;
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [showGuide, setShowGuide] = useState(false);
   const [isLandscape, setIsLandscape] = useState(false);
   const [settings, setSettings] = useState<Settings>({
     fontSize: 'medium',
@@ -31,11 +29,6 @@ export default function App() {
     const agreed = localStorage.getItem('user_agreed');
     if (!agreed) {
       setShowPrivacyModal(true);
-    } else {
-      const guideCompleted = localStorage.getItem('guide_completed');
-      if (!guideCompleted) {
-        setShowGuide(true);
-      }
     }
 
     const savedSettings = localStorage.getItem('app_settings');
@@ -55,10 +48,6 @@ export default function App() {
   const handleAcceptAgreement = () => {
     localStorage.setItem('user_agreed', 'true');
     setShowPrivacyModal(false);
-    const guideCompleted = localStorage.getItem('guide_completed');
-    if (!guideCompleted) {
-      setShowGuide(true);
-    }
   };
 
   const handleDeclineAgreement = () => {
@@ -91,11 +80,6 @@ export default function App() {
     const updated = { ...settings, ...newSettings };
     setSettings(updated);
     localStorage.setItem('app_settings', JSON.stringify(updated));
-  };
-
-  const handleGuideComplete = () => {
-    setShowGuide(false);
-    localStorage.setItem('guide_completed', 'true');
   };
 
   const getFontSizeClass = () => {
@@ -134,12 +118,6 @@ export default function App() {
         <div className="lattice-corner lattice-top-right" />
         <div className="lattice-corner lattice-bottom-left" />
         <div className="lattice-corner lattice-bottom-right" />
-        
-        <AnimatePresence>
-          {showGuide && (
-            <Guide onComplete={handleGuideComplete} />
-          )}
-        </AnimatePresence>
 
         <main className="flex-1 w-full bg-trad-pattern pb-4 relative z-0">
           <AnimatePresence mode="wait">
@@ -213,13 +191,11 @@ export default function App() {
           </AnimatePresence>
         </main>
 
-        {!showGuide && (
-          <footer className="px-6 py-3 text-center text-[9px] text-trad-yellow/40 z-20">
-            <div className="max-w-[280px] mx-auto leading-relaxed">
-              本APP仅供娱乐，不构成任何实际指导。<br className="xs:hidden" />传承传统文化，科学面对生活。
-            </div>
-          </footer>
-        )}
+        <footer className="px-6 py-3 text-center text-[9px] text-trad-yellow/40 z-20">
+          <div className="max-w-[280px] mx-auto leading-relaxed">
+            本APP仅供娱乐，不构成任何实际指导。<br className="xs:hidden" />传承传统文化，科学面对生活。
+          </div>
+        </footer>
       </div>
 
       <AnimatePresence>
