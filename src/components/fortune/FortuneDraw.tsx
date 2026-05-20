@@ -136,7 +136,7 @@ export default function FortuneDraw({ category, onComplete, soundEnabled, onCanc
         className="relative cursor-pointer"
       >
         {/* The Sign Pot */}
-        <div className="w-32 h-48 bg-gradient-to-bottom from-trad-dark to-trad-red rounded-t-lg rounded-b-3xl border-x-4 border-trad-gold flex flex-col items-center pt-4 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div className="w-32 h-48 bg-linear-to-b from-trad-dark to-trad-red rounded-t-lg rounded-b-3xl border-x-4 border-trad-gold flex flex-col items-center pt-4 relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           <div className="absolute top-0 w-full h-4 bg-trad-gold/40" />
           <div className="text-trad-gold/20 text-4xl font-serif writing-vertical tracking-widest mt-4">
             {category.name.substring(0, 2)}

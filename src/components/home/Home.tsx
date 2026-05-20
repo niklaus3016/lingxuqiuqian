@@ -31,7 +31,7 @@ export default function Home({ onNavigate }: HomeProps) {
           onClick={() => onNavigate('fortune')}
           className="relative h-44 rounded-2xl overflow-hidden shadow-xl border-2 border-trad-gold/50 group"
         >
-          <div className="absolute inset-0 bg-gradient-to-bottom-right from-trad-dark to-trad-red" />
+          <div className="absolute inset-0 bg-linear-to-br from-trad-dark to-trad-red" />
           <div className="absolute top-0 right-0 p-4 opacity-5 text-trad-gold">
             <Sparkles size={120} />
           </div>
@@ -53,7 +53,7 @@ export default function Home({ onNavigate }: HomeProps) {
           onClick={() => onNavigate('almanac')}
           className="relative h-44 rounded-2xl overflow-hidden shadow-xl border-2 border-trad-gold/50 group"
         >
-          <div className="absolute inset-0 bg-gradient-to-bottom-right from-trad-gold to-amber-600" />
+          <div className="absolute inset-0 bg-linear-to-br from-trad-gold to-amber-600" />
           <div className="absolute top-0 right-0 p-4 opacity-10 text-trad-red">
             <Calendar size={120} />
           </div>

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, Type, Volume2, Trash2, ShieldCheck, Shield, X } from 'lucide-react';
+import { ChevronLeft, Type, Volume2, ShieldCheck, Shield, X } from 'lucide-react';
 import { Settings } from '../../types';
 import { cn } from '../../lib/utils';
 import { AgreementModal, PrivacyPolicyContent } from '../agreement/AgreementComponents';
-import { storage } from '../../lib/storage';
 
 interface SettingsViewProps {
   onBack: () => void;
@@ -14,14 +13,6 @@ interface SettingsViewProps {
 
 export default function SettingsView({ onBack, settings, onUpdate }: SettingsViewProps) {
   const [showPrivacy, setShowPrivacy] = useState(false);
-
-  const handleClearCache = () => {
-    if (window.confirm('此操作将清除页面缓存和截图记录，确定吗？')) {
-      localStorage.clear();
-      storage.clearCache();
-      alert('已成功清除本地缓存。');
-    }
-  };
 
   return (
     <div className="flex flex-col h-full bg-trad-pattern">
@@ -95,14 +86,6 @@ export default function SettingsView({ onBack, settings, onUpdate }: SettingsVie
             className="w-full py-4 bg-trad-dark/30 border border-trad-gold/10 rounded-2xl flex items-center justify-center gap-3 text-trad-yellow/60 font-serif font-bold active:bg-trad-dark transition-colors"
           >
             <Shield size={18} /> 隐私政策
-          </button>
-
-          {/* Clear Cache */}
-          <button 
-            onClick={handleClearCache}
-            className="w-full py-4 bg-trad-dark/30 border border-trad-gold/10 rounded-2xl flex items-center justify-center gap-3 text-trad-paper/40 font-serif font-bold active:bg-trad-dark transition-colors opacity-60"
-          >
-            <Trash2 size={18} /> 清除本地缓存
           </button>
         </div>
 
