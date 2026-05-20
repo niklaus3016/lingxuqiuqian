@@ -81,7 +81,7 @@ export default function AlmanacDetail({ onClose, onSelectDate, currentDate }: Al
                <h2 className="text-4xl font-serif font-black text-trad-yellow [text-shadow:0_0_20px_rgba(234,179,8,0.3)] tracking-wider">
                  {data.lunarDate}
                </h2>
-               <div className="w-16 h-px bg-gradient-to-r from-transparent via-trad-gold/30 to-transparent mx-auto my-4" />
+               <div className="w-16 h-px bg-linear-to-r from-transparent via-trad-gold/30 to-transparent mx-auto my-4" />
                <div className="text-xs text-trad-paper/50 tracking-widest font-serif">
                  {new Date(data.solarDate.split(' ')[0]).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
                </div>
@@ -124,7 +124,7 @@ export default function AlmanacDetail({ onClose, onSelectDate, currentDate }: Al
                  </div>
                </div>
 
-               <div className="relative overflow-hidden p-6 rounded-2xl bg-gradient-to-br from-trad-dark to-trad-dark/60 border border-trad-gold/20 shadow-xl group">
+               <div className="relative overflow-hidden p-6 rounded-2xl bg-linear-to-br from-trad-dark to-trad-dark/60 border border-trad-gold/20 shadow-xl group">
                   <div className="absolute inset-0 bg-trad-gold/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                   <div className="flex justify-between items-center relative z-10">
                     <div className="flex flex-col">
@@ -135,7 +135,7 @@ export default function AlmanacDetail({ onClose, onSelectDate, currentDate }: Al
                       💰
                     </div>
                   </div>
-                  <div className="h-px bg-gradient-to-r from-trad-gold/20 via-transparent to-transparent w-full my-4" />
+                  <div className="h-px bg-linear-to-r from-trad-gold/20 via-transparent to-transparent w-full my-4" />
                   <div className="text-[10px] text-trad-paper/40 leading-relaxed italic text-center font-serif tracking-widest">
                      「 顺天者昌 · 逆天者亡 」
                   </div>

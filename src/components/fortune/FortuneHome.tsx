@@ -62,12 +62,12 @@ export default function FortuneHome({ onBack, settings }: FortuneHomeProps) {
         {!selectedCategory && (
           <div className="space-y-4">
             <div className="relative group">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-trad-gold/0 via-trad-gold/30 to-trad-gold/0 blur-[2px] rounded-xl" />
+              <div className="absolute -inset-0.5 bg-linear-to-r from-trad-gold/0 via-trad-gold/30 to-trad-gold/0 blur-[2px] rounded-xl" />
               <div className="relative bg-trad-dark/60 p-4 rounded-xl border border-trad-gold/30 flex flex-col items-center text-center shadow-xl">
                 <p className="text-base text-trad-yellow font-serif font-bold leading-relaxed tracking-wide">
                   诚心祈愿 · 摇晃签筒
                 </p>
-                <div className="w-32 h-px bg-gradient-to-r from-transparent via-trad-gold/40 to-transparent my-1.5" />
+                <div className="w-32 h-px bg-linear-to-r from-transparent via-trad-gold/40 to-transparent my-1.5" />
                 <p className="text-[10px] text-trad-paper/40 font-sans">
                   请根据心中所求选择合适的签筒
                 </p>

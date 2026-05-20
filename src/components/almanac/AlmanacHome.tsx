@@ -115,12 +115,12 @@ export default function AlmanacHome({ onBack }: AlmanacHomeProps) {
 
         {/* Tip Section */}
         <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-trad-gold/0 via-trad-gold/30 to-trad-gold/0 blur-[2px] rounded-xl" />
+          <div className="absolute -inset-0.5 bg-linear-to-r from-trad-gold/0 via-trad-gold/30 to-trad-gold/0 blur-[2px] rounded-xl" />
           <div className="relative bg-trad-dark/60 p-4 rounded-xl border border-trad-gold/30 flex flex-col items-center text-center shadow-xl">
             <p className="text-base text-trad-yellow font-serif font-bold leading-relaxed tracking-wide">
               民俗常识
             </p>
-            <div className="w-32 h-px bg-gradient-to-r from-transparent via-trad-gold/40 to-transparent my-1.5" />
+            <div className="w-32 h-px bg-linear-to-r from-transparent via-trad-gold/40 to-transparent my-1.5" />
             <p className="text-[10px] text-trad-paper/40 font-serif italic leading-relaxed">
               「 {currentTip.content} 」
             </p>
